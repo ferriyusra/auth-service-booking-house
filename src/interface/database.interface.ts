@@ -9,6 +9,6 @@ export interface IQueryParams {
   limit: number;
   page: number;
   query: string;
-  column: string;
-  sort: 'ASC' | 'DESC';
+  column?: string;
+  sort?: 'ASC' | 'DESC';
 }
