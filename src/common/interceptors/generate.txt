@@ -1,0 +1,1 @@
+nest g itc common/interceptors/response --flat
