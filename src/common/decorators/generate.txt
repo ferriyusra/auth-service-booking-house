@@ -1,0 +1,1 @@
+nest g d common/decorators/auth-token --flat
