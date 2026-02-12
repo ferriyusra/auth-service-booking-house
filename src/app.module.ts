@@ -8,6 +8,7 @@ import { ConfigService } from '@nestjs/config';
 import { getSecretValue } from './config/configuration.config';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { AuthModule } from './modules/auth/auth.module';
 import path from 'path';
 
 @Module({
@@ -43,7 +44,8 @@ import path from 'path';
         acquireTimeout: getSecretValue(configService).db_acquire_timeout,
         poolSize: getSecretValue(configService).db_pool_size,
       })
-    })
+    }),
+    AuthModule
   ],
   controllers: [AppController],
   providers: [AppService],

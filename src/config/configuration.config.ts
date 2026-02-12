@@ -1,5 +1,5 @@
 import { envConstant } from "../constants/env.constant";
-import { IAWSConfig } from "../interface/aws.interface";
+import { IAWSConfig } from "../interfaces/aws.interface";
 import { AwsUtil } from "../utils/aws.utils";
 import fs from 'node:fs'
 import { ConfigService } from '@nestjs/config';

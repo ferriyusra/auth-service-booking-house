@@ -1,0 +1,1 @@
+nest g gu modules/auth/guards/jwt --flat

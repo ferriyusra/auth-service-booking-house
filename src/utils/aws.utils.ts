@@ -4,7 +4,7 @@ import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
 import { GetParameterCommand, SSMClient } from '@aws-sdk/client-ssm';
 
 // import { IAWSConfig } from 'src/interface/aws.interface';
-import { IAWSConfig } from '../interface/aws.interface';
+import { IAWSConfig } from '../interfaces/aws.interface';
 import { awsConstant } from '../constants/aws.constant';
 
 @Injectable()
