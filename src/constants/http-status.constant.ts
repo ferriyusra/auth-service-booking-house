@@ -1,4 +1,4 @@
-export const httpStatusConstant = {
+export const HTTP_STATUS = {
   success: 'success',
   error: 'error',
 };

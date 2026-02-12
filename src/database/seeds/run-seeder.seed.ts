@@ -1,8 +1,7 @@
-/* eslint-disable @typescript-eslint/await-thenable */
 import 'reflect-metadata';
 import dotenv from 'dotenv';
 import { AwsUtil } from '../../utils/aws.utils';
-import { envConstant } from 'src/constants/env.constant';
+import { envConstant } from '../../constants/env.constant';
 import * as fs from 'node:fs';
 import { DataSource } from 'typeorm';
 import path from 'node:path';
@@ -26,7 +25,7 @@ let jsonValue: any = {};
     username: jsonValue.db_username,
     password: jsonValue.db_password,
     database: jsonValue.db_name,
-    entities: [path.join(__dirname, `../../entities/*.entities{.ts,.js}`)],
+    entities: [path.join(__dirname, `../../entities/*.entity{.ts,.js}`)],
     ssl: { rejectUnauthorized: false },
     synchronize: true,
     migrationsRun: true,
@@ -39,7 +38,7 @@ let jsonValue: any = {};
 
   const executor = new SeederExecutor(dataSource);
   await executor.execute({
-    seeds: ['src/database/seeds/**/*{.ts,.js'],
+    seeds: ['src/database/seeds/**/*{.ts,.js}'],
   });
   console.log('Seeding completed.');
 

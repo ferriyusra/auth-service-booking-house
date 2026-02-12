@@ -22,7 +22,7 @@
     "strictBindCallApply": false,
     "noFallthroughCasesInSwitch": false,
     "types": ["node","multer"],
-    "typeRoots": ["./node_modules@types"]
+    "typeRoots": ["./node_modules/@types"]
   },
   "include": ["src/**/*.ts", "src/types/multer-express.d.ts", "test"],
   "exclude": ["node_modules", "dist"]

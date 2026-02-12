@@ -9,7 +9,6 @@ import { map, Observable } from 'rxjs';
 import {
   RESPONSE_MESSSAGE,
   RESPONSE_OPTS,
-  RESPONSE_OPTS,
   ResponseOpts,
 } from '../decorators/response.decorator';
 import { HTTP_STATUS } from 'src/constants/http-status.constant';
@@ -45,8 +44,10 @@ function defaultMessage(code: number): string {
 }
 
 @Injectable()
-export class ResponseInterceptor<T>
-  implements NestInterceptor<T>, ResponseFormat<T> {
+export class ResponseInterceptor<T> implements NestInterceptor<
+  T,
+  ResponseFormat<T>
+> {
   constructor(private readonly reflector: Reflector) { }
 
   private camelToSnake(obj: any, keyName?: string): any {

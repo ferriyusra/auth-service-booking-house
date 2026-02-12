@@ -1,11 +1,11 @@
-/* eslint-disable @typescript-eslint/await-thenable */
-/* eslint-disable @typescript-eslint/no-redundant-type-constituents */
+/* eslint-disable prettier/prettier */
 import { Injectable, Logger } from '@nestjs/common';
 import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
 import { GetParameterCommand, SSMClient } from '@aws-sdk/client-ssm';
 
-import { awsConstant } from 'src/constants/aws.constant';
-import { IAWSConfig } from 'src/interface/aws.interface';
+// import { IAWSConfig } from 'src/interface/aws.interface';
+import { IAWSConfig } from '../interface/aws.interface';
+import { awsConstant } from '../constants/aws.constant';
 
 @Injectable()
 export class AwsUtil {
@@ -18,7 +18,7 @@ export class AwsUtil {
       region: awsConstant.REGION_AWS,
       credentials: {
         accessKeyId: awsConstant.ACCESS_KEY_AWS,
-        secretAccessKey: awsConstant.SECRET_ACCES_KEY_AWS,
+        secretAccessKey: awsConstant.SECRET_ACCESS_KEY_AWS,
       },
     };
 
@@ -58,12 +58,7 @@ export class AwsUtil {
     try {
       const parameterNames = awsConstant.PARAMETER_STORE_NAMES;
       const splitParameterNames = parameterNames
-        ? parameterNames?.includes(',')
-          ? parameterNames
-              .split(',')
-              .map((name) => name.trim())
-              .filter(Boolean)
-          : [parameterNames.trim()]
+        ? parameterNames.split(',').map((name) => name.trim()).filter(Boolean)
         : [];
       let result: IAWSConfig = {} as IAWSConfig;
       for (const item of splitParameterNames) {

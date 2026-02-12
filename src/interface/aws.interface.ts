@@ -12,7 +12,7 @@ export interface IAWSConfig {
   db_password: string;
   db_database: string;
   db_name: string;
-  db_connect_timeout: number;
+  db_connection_timeout: number;
   db_acquire_timeout: number;
   db_max_retry: number;
   db_pool_size: number;
