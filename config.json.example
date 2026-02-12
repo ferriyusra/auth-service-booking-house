@@ -1,0 +1,15 @@
+{
+  "rate_limit_time": 60,
+  "rate_limit_max": 100,
+  "timeout": 5000,
+  "max_redirects": 5,
+  "db_dialect": "postgres",
+  "db_host": "",
+  "db_username": "",
+  "db_password": "",
+  "db_name": "",
+  "db_port": 5432,
+  "db_connection_timeout": 3000,
+  "db_acquire_timeout": 3000,
+  "db_pool_size": 10
+}
