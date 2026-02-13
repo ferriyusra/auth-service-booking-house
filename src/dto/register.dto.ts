@@ -4,16 +4,16 @@ export class RegisterDTO {
   @IsString()
   @IsNotEmpty()
   @Matches(/^[a-zA-Z\s]+$/)
-  name: string | undefined;
+  name: string;
 
   @IsString()
   @IsNotEmpty()
   @IsEmail()
-  email: string | undefined;
+  email: string;
 
   @IsString()
   @IsNotEmpty()
-  password: string | undefined;
+  password: string;
 
   @IsString()
   @IsNotEmpty()

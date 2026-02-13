@@ -36,6 +36,9 @@ export class User {
   })
   email: string;
 
+  @Column()
+  password: string;
+
   @Column({
     type: 'varchar',
     unique: true,
@@ -62,7 +65,7 @@ export class User {
   @Column({
     nullable: true,
   })
-  refresh_token_expires_at: Date;
+  refresh_token_expired_at: Date;
 
   @CreateDateColumn({
     name: 'created_at',

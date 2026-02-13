@@ -4,9 +4,9 @@ export class LoginDTO {
   @IsString()
   @IsNotEmpty()
   @IsEmail()
-  email: string | undefined;
+  email: string;
 
   @IsString()
   @IsNotEmpty()
-  password: string | undefined;
+  password: string;
 }

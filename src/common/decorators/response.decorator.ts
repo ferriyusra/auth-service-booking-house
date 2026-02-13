@@ -9,10 +9,8 @@ export type ResponseOpts = {
   liftToken?: boolean;
 };
 
-export const ResponseMessage = (message: string) => {
+export const ResponseMessage = (message: string) =>
   SetMetadata(RESPONSE_MESSSAGE, message);
-};
 
-export const ResponseOption = (opts?: ResponseOpts) => {
+export const ResponseOptions = (opts?: ResponseOpts) =>
   SetMetadata(RESPONSE_OPTS, opts);
-};
