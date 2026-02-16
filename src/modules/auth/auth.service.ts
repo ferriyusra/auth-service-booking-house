@@ -1,4 +1,10 @@
-import { BadRequestException, Injectable, InternalServerErrorException, Logger, UnauthorizedException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  InternalServerErrorException,
+  Logger,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { authConstant } from 'src/constants/auth.constant';
 import { Role, User } from '../../entities/user.entity';
@@ -19,7 +25,7 @@ export class AuthService {
     private readonly repository: UserRepository,
     private readonly jwtService: JwtService,
     private readonly awsUtil: AwsUtil,
-  ) { }
+  ) {}
 
   private buildAuthPayload(user: Partial<User>): IAuthUserPayload {
     return {
@@ -84,7 +90,7 @@ export class AuthService {
 
   public async login(data: LoginDTO): Promise<{
     access_token: string;
-    refresh_token: string
+    refresh_token: string;
     user: IAuthUserPayload;
   }> {
     try {
@@ -97,8 +103,8 @@ export class AuthService {
         throw new UnauthorizedException(authConstant.INVALID_PASSWORD);
       }
 
-      const payload = this.buildAuthPayload(user)
-      const accessToken = await this.signAccessToken(user, payload)
+      const payload = this.buildAuthPayload(user);
+      const accessToken = await this.signAccessToken(user, payload);
       const refreshToken = await this.signRefreshToken(user, payload);
       const refreshTokenExpiresIn = process.env.JWT_REFRESH_EXPIRES_IN as any;
       const days = parseInt(refreshTokenExpiresIn, 10);
@@ -106,16 +112,16 @@ export class AuthService {
         refresh_token: refreshToken,
         refresh_token_expired_at: new Date(
           Date.now() + days * 24 * 60 * 60 * 1000,
-        )
+        ),
       });
 
       return {
         access_token: accessToken,
         refresh_token: refreshToken,
         user: payload,
-      }
+      };
     } catch (error) {
-      this.logger.error(error)
+      this.logger.error(error);
       throw new InternalServerErrorException(authConstant.SOMETHING_WENT_WRONG);
     }
   }
@@ -140,14 +146,17 @@ export class AuthService {
       return {
         access_token: accessToken,
         user: payload,
-      }
+      };
     } catch (error) {
-      this.logger.error(error)
+      this.logger.error(error);
       throw new InternalServerErrorException(authConstant.SOMETHING_WENT_WRONG);
     }
   }
 
-  public async register(data: RegisterDTO, file?: Express.Multer.File): Promise<IAuthUserPayload> {
+  public async register(
+    data: RegisterDTO,
+    file?: Express.Multer.File,
+  ): Promise<IAuthUserPayload> {
     try {
       await this.assertUnqieEmailAndPhone(data.email, data.phone_number);
       let photo: string = '';
@@ -159,7 +168,7 @@ export class AuthService {
           contentType: file.mimetype,
         });
 
-        photo = uploadImage.url
+        photo = uploadImage.url;
       }
 
       const result = await this.repository.create({
@@ -172,10 +181,9 @@ export class AuthService {
         role: Role.BOARDER,
       });
 
-      return this.buildAuthPayload(result)
-
+      return this.buildAuthPayload(result);
     } catch (error) {
-      this.logger.error(error)
+      this.logger.error(error);
       throw new InternalServerErrorException(authConstant.SOMETHING_WENT_WRONG);
     }
   }
@@ -184,11 +192,11 @@ export class AuthService {
     try {
       const user = await this.repository.findByUuid(uuid);
       if (!user) {
-        throw new BadRequestException(authConstant.NOT_FOUND)
+        throw new BadRequestException(authConstant.NOT_FOUND);
       }
       return this.buildAuthPayload(user);
     } catch (error) {
-      this.logger.error(error)
+      this.logger.error(error);
       throw new InternalServerErrorException(authConstant.SOMETHING_WENT_WRONG);
     }
   }
@@ -197,11 +205,11 @@ export class AuthService {
     try {
       const admin = await this.repository.findAdmin();
       if (!admin) {
-        throw new BadRequestException(authConstant.NOT_FOUND)
+        throw new BadRequestException(authConstant.NOT_FOUND);
       }
       return this.buildAuthPayload(admin);
     } catch (error) {
-      this.logger.error(error)
+      this.logger.error(error);
       throw new InternalServerErrorException(authConstant.SOMETHING_WENT_WRONG);
     }
   }

@@ -1,14 +1,30 @@
-import { Body, Controller, HttpStatus, Post, Res, UnauthorizedException } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpStatus,
+  Param,
+  Post,
+  Req,
+  Res,
+  UnauthorizedException,
+  UploadedFile,
+  UseGuards,
+  UseInterceptors,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LoginDTO } from 'src/dto/login.dto';
 import type { Response, Request } from 'express';
 import { ResponseOptions } from 'src/common/decorators/response.decorator';
 import { envConstant } from 'src/constants/env.constant';
 import { authConstant } from 'src/constants/auth.constant';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { RegisterDTO } from 'src/dto/register.dto';
+import { JwtGuard } from './guards/jwt.guard';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) { }
+  constructor(private readonly authService: AuthService) {}
 
   @Post('login')
   @ResponseOptions({
@@ -44,5 +60,34 @@ export class AuthController {
     }
 
     return this.authService.refreshToken(refreshToken);
+  }
+
+  @Post('register')
+  @UseInterceptors(FileInterceptor('photo'))
+  public async register(
+    @Body() data: RegisterDTO,
+    @UploadedFile() file?: Express.Multer.File,
+  ) {
+    return this.authService.register(data, file);
+  }
+
+  @Get('/:uuid')
+  @ResponseOptions({ code: HttpStatus.OK })
+  @UseGuards(JwtGuard)
+  public async getByUuid(@Param('uuid') uuid: string) {
+    return this.authService.getByUuid(uuid);
+  }
+
+  @Get('/without-token/:uuid')
+  @ResponseOptions({ code: HttpStatus.OK })
+  public async getByUuidWithoutToken(@Param('uuid') uuid: string) {
+    return this.authService.getByUuid(uuid);
+  }
+
+  @Get('/admin')
+  @ResponseOptions({ code: HttpStatus.OK })
+  @UseGuards(JwtGuard)
+  public async getAdmin() {
+    return this.authService.getAdmin();
   }
 }
