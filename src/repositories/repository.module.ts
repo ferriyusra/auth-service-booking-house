@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { UserRepository } from './user.repository';
-import { User } from 'src/entities/user.entity';
+import { User } from '../entities/user.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
@@ -8,4 +8,5 @@ import { TypeOrmModule } from '@nestjs/typeorm';
   providers: [UserRepository],
   exports: [UserRepository],
 })
+// eslint-disable-next-line prettier/prettier
 export class RepositoryModule { }

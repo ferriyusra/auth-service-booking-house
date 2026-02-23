@@ -13,18 +13,19 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { LoginDTO } from 'src/dto/login.dto';
+import { LoginDTO } from '../../dto/login.dto';
 import type { Response, Request } from 'express';
-import { ResponseOptions } from 'src/common/decorators/response.decorator';
-import { envConstant } from 'src/constants/env.constant';
-import { authConstant } from 'src/constants/auth.constant';
+import { ResponseOptions } from '../../common/decorators/response.decorator';
+import { envConstant } from '../../constants/env.constant';
+import { authConstant } from '../../constants/auth.constant';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { RegisterDTO } from 'src/dto/register.dto';
+import { RegisterDTO } from '../../dto/register.dto';
 import { JwtGuard } from './guards/jwt.guard';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  // eslint-disable-next-line prettier/prettier
+  constructor(private readonly authService: AuthService) { }
 
   @Post('login')
   @ResponseOptions({

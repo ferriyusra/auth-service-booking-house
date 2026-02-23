@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Role, User } from 'src/entities/user.entity';
+import { Role, User } from '../entities/user.entity';
 import { DeepPartial, Not, Repository, UpdateResult } from 'typeorm';
 
 @Injectable()
@@ -8,9 +8,8 @@ export class UserRepository {
   constructor(
     @InjectRepository(User)
     private readonly repository: Repository<User>,
+    // eslint-disable-next-line prettier/prettier
   ) { }
-
-
 
   public async findByEmail(email: string): Promise<User | null> {
     return this.repository.findOne({ where: { email } });
